@@ -3,6 +3,9 @@
     <li v-for="content in contents" :key="content.id">
       <nuxt-link :to="`/${content.id}`">
         {{ content.title }}
+        <span v-if=" content.category !== null ">
+          {{ content.category.name }}
+        </span>
       </nuxt-link>
     </li>
   </ul>

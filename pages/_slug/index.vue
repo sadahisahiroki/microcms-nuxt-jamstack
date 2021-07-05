@@ -1,9 +1,10 @@
 <template>
-  <main class="main">
+  <div>
     <h1 class="title">{{ title }}</h1>
     <p class="publishedAt">{{ publishedAt }}</p>
+    <p class="category" v-if=" category !== null ">{{ category.name }}</p>
     <div class="post" v-html="body"></div>
-  </main>
+  </div>
 </template>
 
 <script>
@@ -23,9 +24,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.main {
-  max-width: 960px;
-  margin: 0 auto;
+.publishedAt {
+  margin-bottom: 0;
+}
+.category {
+  margin-bottom: 1rem;
 }
 .post {
   > h1 {
