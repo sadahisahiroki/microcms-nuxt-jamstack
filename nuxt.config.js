@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
-  target: 'universal',
+  target: 'static',
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -48,6 +48,8 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   },
+
+  loading: false,
 
   router: {
     extendRoutes(routes, resolve) {

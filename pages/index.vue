@@ -28,6 +28,18 @@
       </nuxt-link>
     </li>
   </ul>
+  <ul class="pager" v-show="categories.length > 0">
+    <li
+      v-for="category in categories"
+      :key="category.id"
+      class="page"
+      :class="{ active: category === `${category}` }"
+    >
+      <nuxt-link :to="`/category/${category.id}/page/1`">
+        {{ category.name }}
+      </nuxt-link>
+    </li>
+  </ul>
 </div>
 </template>
 
@@ -59,8 +71,10 @@ export default {
             : undefined;
     return {
       ...data,
+      categories: categories.data.contents,
       selectedCategory,
       pager: [...Array(Math.ceil(data.totalCount / limit)).keys()],
+      page,
     };
   },
   data() {
