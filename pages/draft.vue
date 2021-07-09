@@ -2,7 +2,7 @@
   <div v-if="data">
     <h1 class="title">{{ data.title }}</h1>
     <p class="publishedAt">{{ data.updatedAt }}</p>
-    <p class="category" v-if=" data.category !== null ">{{ data.category.name }}</p>
+    <p class="category" v-if=" data.category !== null ">{{ data.category }}</p>
     <div class="post" v-html="data.body"></div>
   </div>
 </template>
@@ -26,11 +26,7 @@ export default {
       return;
     }
     const { data } = await axios.get(
-      `https://jam-jam2-1.microcms.io/api/v1/blog/${query.id}?draftKey=${query.draftKey}`,
-      {
-        headers: { "X-API-KEY": this.$config.apiKey },
-      }
-    )
+      `/.netlify/functions/draft?id=${query.id}&draftKey=${query.draftKey}`);
     this.data = data;
   },
 };

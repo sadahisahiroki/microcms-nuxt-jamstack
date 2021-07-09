@@ -6,16 +6,21 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "function:build": "netlify-lambda build functions/",
+    "function:serve": "netlify-lambda serve functions/"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/dotenv": "^1.4.1",
+    "@nuxtjs/proxy": "^2.1.0",
     "core-js": "^3.15.1",
     "fibers": "^5.0.0",
     "nuxt": "^2.15.7",
     "sass": "^1.35.1",
     "sass-loader": "^10.2.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "netlify-lambda": "^2.0.11"
+  }
 }
