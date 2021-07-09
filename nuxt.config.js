@@ -1,6 +1,14 @@
 import axios from 'axios';
+require('dotenv').config();
+const { API_KEY } = process.env;
 
 export default {
+  privateRuntimeConfig: {
+    apiKey: API_KEY
+  },
+  publicRuntimeConfig: {
+    apiKey: process.env.NODE_ENV !== 'production' ? API_KEY : undefined
+  },
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
@@ -75,7 +83,7 @@ export default {
       // 一覧のページング
       const pages = await axios
         .get(`https://jam-jam2-1.microcms.io/api/v1/blog?limit=0`, {
-          headers: { 'X-API-KEY': '865c366d-79c3-4727-b68f-a6f22ee0876a' },
+          headers: { 'X-API-KEY': '$config.apiKey' },
         })
           .then((res) =>
             range(1, Math.ceil(res.data.totalCount / limit)).map((p) => ({
@@ -85,7 +93,7 @@ export default {
 
       const categories = await axios
         .get(`https://jam-jam2-1.microcms.io/api/v1/categories?fields=id`, {
-          headers: { 'X-API-KEY': '865c366d-79c3-4727-b68f-a6f22ee0876a' },
+          headers: { 'X-API-KEY': '$config.apiKey' },
         })
           .then(({ data }) => {
             return data.contents.map((content) => content.id)
@@ -96,7 +104,7 @@ export default {
         categories.map((category) =>
           axios.get(
             `https://jam-jam2-1.microcms.io/api/v1/blog?limit=0&filters=category[equals]${category}`,
-            { headers: { 'X-API-KEY': '865c366d-79c3-4727-b68f-a6f22ee0876a' } }
+            { headers: { 'X-API-KEY': '$config.apiKey' } }
           )
             .then((res) =>
               range(1, Math.ceil(res.data.totalCount / 10)).map((p) => ({

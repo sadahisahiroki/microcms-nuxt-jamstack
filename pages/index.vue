@@ -46,7 +46,7 @@
 <script>
 import axios from 'axios';
 export default {
-  async asyncData({ params }) {
+  async asyncData({ params, $config }) {
     const page = params.p || '1';
     const categoryId = params.categoryId;
     const limit = 3;
@@ -56,13 +56,13 @@ export default {
         categoryId === undefined ? '' : `&filters=category[equals]${categoryId}`
       }&offset=${(page - 1) * limit}`,
       {
-        headers: { "X-API-KEY": "865c366d-79c3-4727-b68f-a6f22ee0876a" },
+        headers: { "X-API-KEY": $config.apiKey },
       }
     );
     const categories = await axios.get(
       `https://jam-jam2-1.microcms.io/api/v1/categories?limit=100`,
       {
-        headers: { "X-API-KEY": "865c366d-79c3-4727-b68f-a6f22ee0876a" },
+        headers: { "X-API-KEY": $config.apiKey },
       }
     );
     const selectedCategory =
@@ -83,5 +83,6 @@ export default {
       totalCount: this.totalCount || 0,
       pager: this.pager || [],
     };
-  },};
+  },
+};
 </script>
