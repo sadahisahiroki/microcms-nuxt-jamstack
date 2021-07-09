@@ -3,11 +3,11 @@ require('dotenv').config();
 const { API_KEY } = process.env;
 
 export default {
-  privateRuntimeConfig: {
-    apiKey: API_KEY
-  },
   publicRuntimeConfig: {
     apiKey: process.env.NODE_ENV !== 'production' ? API_KEY : undefined
+  },
+  privateRuntimeConfig: {
+    apiKey: API_KEY
   },
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -83,7 +83,7 @@ export default {
       // 一覧のページング
       const pages = await axios
         .get(`https://jam-jam2-1.microcms.io/api/v1/blog?limit=0`, {
-          headers: { 'X-API-KEY': '$config.apiKey' },
+          headers: { 'X-API-KEY': API_KEY },
         })
           .then((res) =>
             range(1, Math.ceil(res.data.totalCount / limit)).map((p) => ({
@@ -93,7 +93,7 @@ export default {
 
       const categories = await axios
         .get(`https://jam-jam2-1.microcms.io/api/v1/categories?fields=id`, {
-          headers: { 'X-API-KEY': '$config.apiKey' },
+          headers: { 'X-API-KEY': API_KEY },
         })
           .then(({ data }) => {
             return data.contents.map((content) => content.id)
@@ -104,7 +104,7 @@ export default {
         categories.map((category) =>
           axios.get(
             `https://jam-jam2-1.microcms.io/api/v1/blog?limit=0&filters=category[equals]${category}`,
-            { headers: { 'X-API-KEY': '$config.apiKey' } }
+            { headers: { 'X-API-KEY': API_KEY } }
           )
             .then((res) =>
               range(1, Math.ceil(res.data.totalCount / 10)).map((p) => ({
